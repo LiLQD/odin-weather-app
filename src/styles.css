@@ -1,5 +1,7 @@
 /* ─── Reset ─────────────────────────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -7,17 +9,17 @@
 
 /* ─── Base ───────────────────────────────────────────── */
 :root {
-  --bg-page:      #f5f5f3;
-  --bg-card:      #ffffff;
-  --bg-surface:   #efefec;
-  --border:       rgba(0, 0, 0, 0.08);
+  --bg-page: #f5f5f3;
+  --bg-card: #ffffff;
+  --bg-surface: #efefec;
+  --border: rgba(0, 0, 0, 0.08);
   --border-hover: rgba(0, 0, 0, 0.16);
   --text-primary: #111110;
-  --text-muted:   #888780;
-  --text-hint:    #b4b2a9;
-  --radius-md:    8px;
-  --radius-lg:    12px;
-  --font:         'Segoe UI', system-ui, sans-serif;
+  --text-muted: #888780;
+  --text-hint: #b4b2a9;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --font: 'Segoe UI', system-ui, sans-serif;
 }
 
 body {
@@ -123,7 +125,9 @@ body {
   font-size: 13px;
   color: var(--text-muted);
   user-select: none;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .toggle-pill span.active {
@@ -139,8 +143,12 @@ body {
 }
 
 @keyframes shimmer {
-  0%   { background-position: -600px 0; }
-  100% { background-position:  600px 0; }
+  0% {
+    background-position: -600px 0;
+  }
+  100% {
+    background-position: 600px 0;
+  }
 }
 
 .skeleton {
@@ -150,9 +158,15 @@ body {
   animation: shimmer 1.4s infinite;
 }
 
-.skeleton-main     { height: 180px; }
-.skeleton-gif      { height: 160px; }
-.skeleton-forecast { height: 90px; }
+.skeleton-main {
+  height: 180px;
+}
+.skeleton-gif {
+  height: 160px;
+}
+.skeleton-forecast {
+  height: 90px;
+}
 
 /* ─── Main weather card ──────────────────────────────── */
 .main-card {
@@ -229,13 +243,28 @@ body {
 }
 
 /* ─── Dynamic background themes ─────────────────────── */
-body.weather-sunny  { background: #fdf8ee; }
-body.weather-cloudy { background: #f0f0f0; }
-body.weather-rain   { background: #eef2f7; }
-body.weather-snow   { background: #f0f4ff; }
-body.weather-storm  { background: #e8e8ed; }
-body.weather-fog    { background: #f2f2ef; }
-body.weather-night  { background: #1a1a2e; color: #e0e0e0; }
+body.weather-sunny {
+  background: #fdf8ee;
+}
+body.weather-cloudy {
+  background: #f0f0f0;
+}
+body.weather-rain {
+  background: #eef2f7;
+}
+body.weather-snow {
+  background: #f0f4ff;
+}
+body.weather-storm {
+  background: #e8e8ed;
+}
+body.weather-fog {
+  background: #f2f2ef;
+}
+body.weather-night {
+  background: #1a1a2e;
+  color: #e0e0e0;
+}
 
 /* ─── Giphy panel ────────────────────────────────────── */
 .gif-card {
@@ -322,6 +351,10 @@ body.weather-night  { background: #1a1a2e; color: #e0e0e0; }
 
 /* ─── Responsive ─────────────────────────────────────── */
 @media (max-width: 360px) {
-  .forecast-row { grid-template-columns: repeat(3, 1fr); }
-  .temp-big { font-size: 44px; }
+  .forecast-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .temp-big {
+    font-size: 44px;
+  }
 }
