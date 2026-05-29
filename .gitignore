@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Cache
+.eslintcache
+.stylelintcache
+.cache
+.parcel-cache
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Misc
+*.tsbuildinfo
+.npm
