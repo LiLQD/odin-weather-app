@@ -1,14 +1,40 @@
 const visualCrossingAPI = 'ZLMBP57GJMXTH6LGSTF397UWW';
-
-export async function getWeatherData(address) {
+export let currentWeatherData =
+  JSON.parse(localStorage.getItem('weatherData')) || undefined;
+export async function updateWeatherData(address) {
   try {
     let weatherData = await fetch(
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${address}?unitGroup=us&key=${visualCrossingAPI}&contentType=json`
     );
-    const weatherDataJson = await weatherData.json();
+    const raw = await weatherData.json();
+    console.log(raw);
+    const weatherDataJson = processWeatherData(raw);
     console.log(weatherDataJson);
-    return weatherDataJson;
+    localStorage.setItem('weatherData', JSON.stringify(weatherDataJson));
+    currentWeatherData = weatherDataJson;
   } catch (err) {
     console.error(err);
   }
+}
+
+function processWeatherData(raw) {
+  const today = raw.days[0];
+  return {
+    city: raw.resolvedAddress,
+    tempF: Math.round(today.temp),
+    feelsLikeF: Math.round(today.feelslike),
+    condition: today.conditions,
+    humidity: Math.round(today.humidity),
+    windMph: Math.round(today.windspeed),
+    uvIndex: today.uvindex,
+    icon: today.icon,
+    forecast: raw.days.slice(1, 6).map((d) => ({
+      day: new Date(d.datetime)
+        .toLocaleDateString('en-US', { weekday: 'long' })
+        .toUpperCase(),
+      icon: d.icon,
+      highF: Math.round(d.tempmax),
+      lowF: Math.round(d.tempmin),
+    })),
+  };
 }
