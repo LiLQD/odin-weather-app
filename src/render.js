@@ -61,9 +61,11 @@ export function buildLayout() {
   toggleF.dataset.unit = 'F';
   const toggleC = el('span', {
     id: 'toggle-c',
-    classes: ['active'],
     text: '°C',
   });
+  currentUnit === 'C'
+    ? toggleC.classList.add('active')
+    : toggleF.classList.add('active');
   toggleC.dataset.unit = 'C';
   togglePill.append(toggleC, toggleF);
   controlRow.append(statusBar, togglePill);
