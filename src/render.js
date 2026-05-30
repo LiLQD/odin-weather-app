@@ -10,11 +10,6 @@ function el(tag, { classes, id, attribute, text }) {
   return node;
 }
 
-function append(parent, ...children) {
-  children.forEach((child) => parent.appendChild(child));
-  return parent;
-}
-
 function createSVGEl(tag, attrs) {
   const node = document.createElementNS('http://www.w3.org/2000/svg', tag);
   if (attrs) Object.entries(attrs).forEach(([k, v]) => node.setAttribute(k, v));
