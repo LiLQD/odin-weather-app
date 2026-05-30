@@ -1,5 +1,5 @@
+import { getIconSVG } from './picture.js';
 import { currentUnit, reverseCurrentUnit } from './state.js';
-
 function el(tag, { classes, id, attribute, text }) {
   const node = document.createElement(tag);
   if (id) node.id = id;
@@ -223,4 +223,23 @@ export function buildUnitButton() {
     );
     nextUnitElement?.classList.add('active');
   });
+}
+
+export function renderWeatherContent(weatherData) {
+  const weatherContent = document.querySelector('#weather-content');
+  if (weatherData === undefined) {
+    console.log('No weather data in local storage');
+    weatherContent.classList.add('hidden');
+    return;
+  }
+  console.log('There is weather data in local storage');
+  console.log(weatherData);
+  weatherContent.classList.remove('hidden');
+
+  const cityName = document.querySelector('#city-name');
+  cityName.textContent = weatherData.city;
+  const cityDate = document.querySelector('#city-date');
+  cityDate.textContent = weatherData.forecast[0].day;
+  const weatherIcon = document.querySelector('#weather-icon');
+  weatherIcon.innerHTML = getIconSVG(weatherData.icon);
 }
