@@ -1,10 +1,10 @@
 import './styles.css';
-import { buildLayout } from './render.js';
+import { buildLayout, buildUnitButton } from './render.js';
 import { getWeatherData } from './weather.js';
 
 console.log('Test Connection');
 document.body.appendChild(buildLayout());
-
+buildUnitButton();
 function searchCity() {
   const input = document.querySelector('#search-input');
   getWeatherData(input.value);

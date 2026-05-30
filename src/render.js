@@ -1,3 +1,5 @@
+import { currentUnit, reverseCurrentUnit } from './state.js';
+
 function el(tag, { classes, id, attribute, text }) {
   const node = document.createElement(tag);
   if (id) node.id = id;
@@ -203,4 +205,20 @@ export function buildLayout() {
   page.append(searchBar, controlRow, loading, weatherContent, errorMsg);
 
   return page;
+}
+
+export function buildUnitButton() {
+  const toggleButton = document.querySelector('.toggle-pill');
+  if (!toggleButton) return;
+  toggleButton.addEventListener('click', () => {
+    const currentUnitElement = document.querySelector(
+      `[data-unit="${currentUnit}"].active`
+    );
+    currentUnitElement?.classList.remove('active');
+    reverseCurrentUnit();
+    const nextUnitElement = document.querySelector(
+      `[data-unit="${currentUnit}"]`
+    );
+    nextUnitElement?.classList.add('active');
+  });
 }
