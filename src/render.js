@@ -16,7 +16,7 @@ function el(tag, { classes, id, attribute, text, children, on } = {}) {
   return node;
 }
 
-function qs(selector, { classes, removeClasses, text, attribute } = {}) {
+export function qs(selector, { classes, removeClasses, text, attribute } = {}) {
   const node = document.querySelector(selector);
   if (!node) throw new Error(`qs: no element found for "${selector}"`);
   if (text) node.textContent = text;
