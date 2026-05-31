@@ -15,6 +15,7 @@ renderWeatherContent();
 renderGif();
 async function searchCity() {
   const input = qs('#search-input');
+  qs('#weather-content', { text: '', classes: 'hidden' });
   const loading = qs('#loading', { removeClasses: 'hidden' });
   if (currentWeatherData !== '') await updateWeatherData(input.value);
   loading.classList.add('hidden');
