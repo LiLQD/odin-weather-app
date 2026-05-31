@@ -181,20 +181,7 @@ export function buildLayout() {
   });
   gifCard.append(gifPlaceholder, gifImg);
 
-  // 5-day forecast
-  const forecastWrapper = el('div', {});
-  const forecastLabel = el('div', {
-    classes: ['label'],
-    text: '5-day forecast',
-  });
-  forecastLabel.style.marginBottom = '8px';
-  const forecastStrip = el('div', {
-    id: 'forecast-strip',
-    classes: ['forecast-row'],
-  });
-  forecastWrapper.append(forecastLabel, forecastStrip);
-
-  weatherContent.append(mainCard, gifCard, forecastWrapper);
+  weatherContent.append(mainCard, gifCard);
 
   // Error message
   const errorMsg = el('div', {
@@ -249,12 +236,9 @@ export function buildUnitButton() {
 export function renderWeatherContent() {
   qs('#weather-content', { text: '' });
   if (currentWeatherData === undefined) {
-    console.log('No weather data in local storage');
     qs('#weather-content', { classes: 'hidden' });
     return;
   }
-  console.log('There is weather data in local storage');
-  console.log(currentWeatherData);
   qs('#weather-content', { removeClasses: 'hidden' });
   qs('#city-name', { text: currentWeatherData.city }, true);
   qs('#city-date', { text: currentWeatherData.forecast[0].day }, true);
@@ -286,5 +270,3 @@ export async function renderGif() {
     console.error(err);
   }
 }
-
-export function renderForecastStrip() {}
