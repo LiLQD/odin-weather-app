@@ -7,9 +7,7 @@ export async function updateWeatherData(address) {
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${address}?unitGroup=us&key=${visualCrossingAPI}&contentType=json`
     );
     const raw = await weatherData.json();
-    console.log(raw);
     const weatherDataJson = processWeatherData(raw);
-    console.log(weatherDataJson);
     localStorage.setItem('weatherData', JSON.stringify(weatherDataJson));
     currentWeatherData = weatherDataJson;
   } catch (err) {
@@ -41,6 +39,5 @@ function processWeatherData(raw) {
 
 export function convertToC(temp) {
   const result = Math.round((temp - 32) / 1.8);
-  console.log(result);
   return result;
 }
