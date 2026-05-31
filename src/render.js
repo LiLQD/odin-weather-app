@@ -1,13 +1,32 @@
 import { getIconSVG } from './picture.js';
 import { currentUnit, reverseCurrentUnit } from './state.js';
-function el(tag, { classes, id, attribute, text }) {
+// Create a new element
+function el(tag, { classes, id, attribute, text, children, on } = {}) {
   const node = document.createElement(tag);
   if (id) node.id = id;
+  if (text) node.textContent = text;
   if (classes) {
     const list = Array.isArray(classes) ? classes : [classes];
     node.classList.add(...list);
   }
+  if (attribute) Object.entries(attribute).forEach(([k, v]) => (node[k] = v));
+  if (on) Object.entries(on).forEach(([e, fn]) => node.addEventListener(e, fn));
+  if (children) node.append(...children);
+  return node;
+}
+
+function qs(selector, { classes, removeClasses, text, attribute } = {}) {
+  const node = document.querySelector(selector);
+  if (!node) throw new Error(`qs: no element found for "${selector}"`);
   if (text) node.textContent = text;
+  if (classes) {
+    const list = Array.isArray(classes) ? classes : [classes];
+    node.classList.add(...list);
+  }
+  if (removeClasses) {
+    const list = Array.isArray(removeClasses) ? removeClasses : [removeClasses];
+    node.classList.remove(...list);
+  }
   if (attribute) Object.entries(attribute).forEach(([k, v]) => (node[k] = v));
   return node;
 }
