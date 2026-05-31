@@ -245,20 +245,22 @@ export function buildUnitButton() {
 }
 
 export function renderWeatherContent(weatherData) {
-  const weatherContent = document.querySelector('#weather-content');
   if (weatherData === undefined) {
     console.log('No weather data in local storage');
-    weatherContent.classList.add('hidden');
+    qs('#weather-content', { classes: 'hidden' });
     return;
   }
   console.log('There is weather data in local storage');
   console.log(weatherData);
-  weatherContent.classList.remove('hidden');
+  qs('#weather-content', { removeClasses: 'hidden' });
 
-  const cityName = document.querySelector('#city-name');
-  cityName.textContent = weatherData.city;
-  const cityDate = document.querySelector('#city-date');
-  cityDate.textContent = weatherData.forecast[0].day;
+  qs('#city-name', { text: weatherData.city }, true);
+  qs('#city-date', { text: weatherData.forecast[0].day }, true);
   const weatherIcon = document.querySelector('#weather-icon');
   weatherIcon.innerHTML = getIconSVG(weatherData.icon);
+  qs('#temp-display', { text: weatherData.tempF });
+  qs('#condition-text', { text: weatherData.condition });
+  qs('#humidity', { text: weatherData.humidity });
+  qs('#wind', { text: weatherData.windMph });
+  qs('#uv-index', { text: weatherData.uvIndex });
 }
