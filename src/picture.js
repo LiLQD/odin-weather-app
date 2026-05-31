@@ -1,3 +1,4 @@
+const giphyAPI = 'kBYg54vWBPKClP70UXIngCNwsLY4KwvZ';
 export function getIconSVG(icon) {
   // Add more mappings as needed
   const icons = {
@@ -13,4 +14,29 @@ export function getIconSVG(icon) {
     if (icon.includes(key)) return icons[key];
   }
   return icons['cloudy'];
+}
+
+const weatherGifMap = {
+  'clear-day': 'sunny day japan anime',
+  'clear-night': 'night sky japan anime',
+  cloudy: 'cloudy sky japan anime',
+  rain: 'rain japan anime',
+  snow: 'snow japan anime',
+  storm: 'thunderstorm japan anime',
+  fog: 'fog mist japan anime',
+};
+
+export async function getGif(icon) {
+  try {
+    const query = weatherGifMap[icon] ?? 'weather anime';
+    const response = await fetch(
+      `https://api.giphy.com/v1/gifs/search?api_key=${giphyAPI}&q=${encodeURIComponent(query)}&limit=5&rating=g`
+    );
+    const raw = await response.json();
+    const results = raw.data;
+    const pick = results[Math.floor(Math.random() * results.length)];
+    return pick.images.original.url;
+  } catch (err) {
+    console.error(err);
+  }
 }

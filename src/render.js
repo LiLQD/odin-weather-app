@@ -1,4 +1,4 @@
-import { getIconSVG } from './picture.js';
+import { getGif, getIconSVG } from './picture.js';
 import { currentUnit, reverseCurrentUnit } from './state.js';
 import { convertToC, currentWeatherData } from './weather.js';
 // Create a new element
@@ -238,6 +238,7 @@ export function buildUnitButton() {
     );
     currentUnitElement?.classList.remove('active');
     reverseCurrentUnit();
+    renderTemperature();
     const nextUnitElement = document.querySelector(
       `[data-unit="${currentUnit}"]`
     );
@@ -272,4 +273,10 @@ export function renderTemperature() {
       ? convertToC(currentWeatherData.tempF) + ' °C'
       : currentWeatherData.tempF + ' °F';
   qs('#temp-display', { text: temp });
+}
+
+export async function renderGif() {
+  let gifURL = await getGif(currentWeatherData.icon);
+  qs('#gif-placeholder', { classes: 'hidden' });
+  qs('#gif-img', { removeClasses: 'hidden', attribute: { src: gifURL } });
 }
