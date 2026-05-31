@@ -251,6 +251,7 @@ export function renderWeatherContent() {
 }
 
 export function renderTemperature() {
+  if (!currentWeatherData) return;
   const temp =
     currentUnit === 'C'
       ? convertToC(currentWeatherData.tempF) + ' °C'
@@ -266,6 +267,7 @@ export async function renderGif() {
     if (!gifURL) return;
     qs('#gif-placeholder', { classes: 'hidden' });
     qs('#gif-img', { removeClasses: 'hidden', attribute: { src: gifURL } });
+    qs('#error-msg', { classes: 'hidden' });
   } catch (err) {
     qs('#error-msg', { removeClasses: 'hidden' });
     qs('#error-text', { text: 'Something went wrong with the gif :(' });

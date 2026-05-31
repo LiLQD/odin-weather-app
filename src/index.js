@@ -23,8 +23,9 @@ async function searchCity() {
     loading.classList.add('hidden');
     renderWeatherContent();
     renderGif();
+    qs('#error-msg', { classes: 'hidden' });
   } catch (err) {
-    qs('error-msg', { removeClasses: 'hidden' });
+    qs('#error-msg', { removeClasses: 'hidden' });
     console.error(err);
   }
 }

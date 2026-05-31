@@ -2,17 +2,13 @@ const visualCrossingAPI = 'ZLMBP57GJMXTH6LGSTF397UWW';
 export let currentWeatherData =
   JSON.parse(localStorage.getItem('weatherData')) || undefined;
 export async function updateWeatherData(address) {
-  try {
-    let weatherData = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${address}?unitGroup=us&key=${visualCrossingAPI}&contentType=json`
-    );
-    const raw = await weatherData.json();
-    const weatherDataJson = processWeatherData(raw);
-    localStorage.setItem('weatherData', JSON.stringify(weatherDataJson));
-    currentWeatherData = weatherDataJson;
-  } catch (err) {
-    console.error(err);
-  }
+  let weatherData = await fetch(
+    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${address}?unitGroup=us&key=${visualCrossingAPI}&contentType=json`
+  );
+  const raw = await weatherData.json();
+  const weatherDataJson = processWeatherData(raw);
+  localStorage.setItem('weatherData', JSON.stringify(weatherDataJson));
+  currentWeatherData = weatherDataJson;
 }
 
 function processWeatherData(raw) {
