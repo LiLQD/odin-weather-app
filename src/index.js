@@ -10,14 +10,16 @@ import { currentWeatherData, updateWeatherData } from './weather.js';
 
 document.body.appendChild(buildLayout());
 buildUnitButton();
-renderWeatherContent();
-renderGif();
+if (currentWeatherData !== undefined) {
+  renderWeatherContent();
+  renderGif();
+}
 async function searchCity() {
   try {
     const input = qs('#search-input');
     qs('#weather-content', { text: '', classes: 'hidden' });
     const loading = qs('#loading', { removeClasses: 'hidden' });
-    if (currentWeatherData !== '') await updateWeatherData(input.value);
+    await updateWeatherData(input.value);
     loading.classList.add('hidden');
     renderWeatherContent();
     renderGif();
