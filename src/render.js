@@ -234,14 +234,13 @@ export function buildUnitButton() {
 }
 
 export function renderWeatherContent() {
-  qs('#weather-content', { text: '' });
   if (currentWeatherData === undefined) {
     qs('#weather-content', { classes: 'hidden' });
     return;
   }
   qs('#weather-content', { removeClasses: 'hidden' });
-  qs('#city-name', { text: currentWeatherData.city }, true);
-  qs('#city-date', { text: currentWeatherData.forecast[0].day }, true);
+  qs('#city-name', { text: currentWeatherData.city });
+  qs('#city-date', { text: currentWeatherData.forecast[0].day });
   const weatherIcon = document.querySelector('#weather-icon');
   weatherIcon.innerHTML = getIconSVG(currentWeatherData.icon);
   renderTemperature(currentWeatherData);
@@ -261,12 +260,15 @@ export function renderTemperature() {
 
 export async function renderGif() {
   try {
+    qs('#gif-img', { classes: 'hidden' });
+    qs('#gif-placeholder', { removeClasses: 'hidden' });
     let gifURL = await getGif(currentWeatherData.icon);
+    if (!gifURL) return;
     qs('#gif-placeholder', { classes: 'hidden' });
     qs('#gif-img', { removeClasses: 'hidden', attribute: { src: gifURL } });
   } catch (err) {
     qs('#error-msg', { removeClasses: 'hidden' });
-    qs('error-text', { text: 'Something went wrong with the gif :(' });
+    qs('#error-text', { text: 'Something went wrong with the gif :(' });
     console.error(err);
   }
 }

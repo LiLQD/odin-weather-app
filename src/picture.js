@@ -33,6 +33,7 @@ export async function getGif(icon) {
   );
   const raw = await response.json();
   const results = raw.data;
+  if (!results?.length) return null;
   const pick = results[Math.floor(Math.random() * results.length)];
   return pick.images.original.url;
 }
