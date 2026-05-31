@@ -38,3 +38,9 @@ function processWeatherData(raw) {
     })),
   };
 }
+
+export function convertToC(temp) {
+  const result = Math.round((temp - 32) / 1.8);
+  console.log(result);
+  return result;
+}
