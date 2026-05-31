@@ -276,7 +276,15 @@ export function renderTemperature() {
 }
 
 export async function renderGif() {
-  let gifURL = await getGif(currentWeatherData.icon);
-  qs('#gif-placeholder', { classes: 'hidden' });
-  qs('#gif-img', { removeClasses: 'hidden', attribute: { src: gifURL } });
+  try {
+    let gifURL = await getGif(currentWeatherData.icon);
+    qs('#gif-placeholder', { classes: 'hidden' });
+    qs('#gif-img', { removeClasses: 'hidden', attribute: { src: gifURL } });
+  } catch (err) {
+    qs('#error-msg', { removeClasses: 'hidden' });
+    qs('error-text', { text: 'Something went wrong with the gif :(' });
+    console.error(err);
+  }
 }
+
+export function renderForecastStrip() {}

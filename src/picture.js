@@ -27,16 +27,12 @@ const weatherGifMap = {
 };
 
 export async function getGif(icon) {
-  try {
-    const query = weatherGifMap[icon] ?? 'weather anime';
-    const response = await fetch(
-      `https://api.giphy.com/v1/gifs/search?api_key=${giphyAPI}&q=${encodeURIComponent(query)}&limit=5&rating=g`
-    );
-    const raw = await response.json();
-    const results = raw.data;
-    const pick = results[Math.floor(Math.random() * results.length)];
-    return pick.images.original.url;
-  } catch (err) {
-    console.error(err);
-  }
+  const query = weatherGifMap[icon] ?? 'weather anime';
+  const response = await fetch(
+    `https://api.giphy.com/v1/gifs/search?api_key=${giphyAPI}&q=${encodeURIComponent(query)}&limit=5&rating=g`
+  );
+  const raw = await response.json();
+  const results = raw.data;
+  const pick = results[Math.floor(Math.random() * results.length)];
+  return pick.images.original.url;
 }

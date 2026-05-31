@@ -14,13 +14,18 @@ buildUnitButton();
 renderWeatherContent();
 renderGif();
 async function searchCity() {
-  const input = qs('#search-input');
-  qs('#weather-content', { text: '', classes: 'hidden' });
-  const loading = qs('#loading', { removeClasses: 'hidden' });
-  if (currentWeatherData !== '') await updateWeatherData(input.value);
-  loading.classList.add('hidden');
-  renderWeatherContent();
-  renderGif();
+  try {
+    const input = qs('#search-input');
+    qs('#weather-content', { text: '', classes: 'hidden' });
+    const loading = qs('#loading', { removeClasses: 'hidden' });
+    if (currentWeatherData !== '') await updateWeatherData(input.value);
+    loading.classList.add('hidden');
+    renderWeatherContent();
+    renderGif();
+  } catch (err) {
+    qs('error-msg', { removeClasses: 'hidden' });
+    console.error(err);
+  }
 }
 
 const searchBtn = qs('#search-btn');
