@@ -1,5 +1,6 @@
 import { getIconSVG } from './picture.js';
 import { currentUnit, reverseCurrentUnit } from './state.js';
+import { convertToC, currentWeatherData } from './weather.js';
 // Create a new element
 function el(tag, { classes, id, attribute, text, children, on } = {}) {
   const node = document.createElement(tag);
@@ -244,23 +245,31 @@ export function buildUnitButton() {
   });
 }
 
-export function renderWeatherContent(weatherData) {
-  if (weatherData === undefined) {
+export function renderWeatherContent() {
+  qs('#weather-content', { text: '' });
+  if (currentWeatherData === undefined) {
     console.log('No weather data in local storage');
     qs('#weather-content', { classes: 'hidden' });
     return;
   }
   console.log('There is weather data in local storage');
-  console.log(weatherData);
+  console.log(currentWeatherData);
   qs('#weather-content', { removeClasses: 'hidden' });
-
-  qs('#city-name', { text: weatherData.city }, true);
-  qs('#city-date', { text: weatherData.forecast[0].day }, true);
+  qs('#city-name', { text: currentWeatherData.city }, true);
+  qs('#city-date', { text: currentWeatherData.forecast[0].day }, true);
   const weatherIcon = document.querySelector('#weather-icon');
-  weatherIcon.innerHTML = getIconSVG(weatherData.icon);
-  qs('#temp-display', { text: weatherData.tempF });
-  qs('#condition-text', { text: weatherData.condition });
-  qs('#humidity', { text: weatherData.humidity });
-  qs('#wind', { text: weatherData.windMph });
-  qs('#uv-index', { text: weatherData.uvIndex });
+  weatherIcon.innerHTML = getIconSVG(currentWeatherData.icon);
+  renderTemperature(currentWeatherData);
+  qs('#condition-text', { text: currentWeatherData.condition });
+  qs('#humidity', { text: currentWeatherData.humidity });
+  qs('#wind', { text: currentWeatherData.windMph });
+  qs('#uv-index', { text: currentWeatherData.uvIndex });
+}
+
+export function renderTemperature() {
+  const temp =
+    currentUnit === 'C'
+      ? convertToC(currentWeatherData.tempF) + ' °C'
+      : currentWeatherData.tempF + ' °F';
+  qs('#temp-display', { text: temp });
 }

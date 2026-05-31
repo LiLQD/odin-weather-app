@@ -5,6 +5,7 @@ import {
   renderWeatherContent,
 } from './render.js';
 import { currentWeatherData, updateWeatherData } from './weather.js';
+import { currentUnit } from './state.js';
 
 console.log('Test Connection');
 document.body.appendChild(buildLayout());
@@ -17,7 +18,7 @@ async function searchCity() {
   loading.classList.remove('hidden');
   if (currentWeatherData !== '') await updateWeatherData(input.value);
   loading.classList.add('hidden');
-  renderWeatherContent(currentWeatherData);
+  renderWeatherContent();
 }
 
 const searchBtn = document.querySelector('#search-btn');
